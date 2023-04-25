@@ -5,7 +5,7 @@ import { useState } from 'react'
 const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
-  apiKey: process.env.NEXT_PUBLIC_API_KEY,  
+  apiKey: process.env.API_KEY,  
 });
 
 console.log(process.env.API_KEY)
@@ -33,8 +33,7 @@ export default function Home() {
       .then((responseAnswer)=> {
       console.log(responseAnswer.data.choices[0].text);
       let chatgpt = (responseAnswer.data.choices[0].text)
-      console.log("ChatGPT answer: ", chatgpt);
-      setResponse(responseAnswer.data.choices[0].text);
+      setResponse(chatgpt);
       })
     setAnswered(true);
     setPrompt("");
