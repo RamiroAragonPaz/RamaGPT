@@ -35,4 +35,4 @@ yarn-error.log*
 next-env.d.ts
 
 # dotenv
-.env.local
+.env
