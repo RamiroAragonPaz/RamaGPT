@@ -1,10 +1,14 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
-import question from '@/components/chatgpt'
 import { useState } from 'react'
-const inter = Inter({ subsets: ['latin'] })
+
+
+const { Configuration, OpenAIApi } = require("openai");
+
+const configuration = new Configuration({
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,  
+});
+
+console.log(process.env.API_KEY)
 
 export default function Home() {
 
@@ -17,11 +21,32 @@ export default function Home() {
     await getAnswer(prompt);
   };
 
-  const getAnswer = async (a) => {
+  const getAnswer = async (prompt) => {
+
+  const openai = new OpenAIApi(configuration);
+  await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: prompt,
+      max_tokens: 2000,
+      temperature: 0,
+  })
+      .then((responseAnswer)=> {
+      console.log(responseAnswer.data.choices[0].text);
+      let chatgpt = (responseAnswer.data.choices[0].text)
+      console.log("ChatGPT answer: ", chatgpt);
+      setResponse(responseAnswer.data.choices[0].text);
+      })
     setAnswered(true);
-    setResponse(await question(a));
     setPrompt("");
   };
+
+
+
+
+
+
+
+
 
   return (
     <div className={styles.container}>

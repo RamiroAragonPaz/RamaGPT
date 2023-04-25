@@ -2,13 +2,12 @@
 import { useState } from "react";
 
 
+
 const { Configuration, OpenAIApi } = require("openai");
-const api = process.env.API_KEY;
 const configuration = new Configuration({
-  apiKey: api,
-  
+  apiKey: process.env.API_KEY,  
 });
-console.log(api);
+console.log(configuration);
 
     const question= async (prompt)=> {
 
